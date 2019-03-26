@@ -20,14 +20,24 @@ html, body {
     background-color: #90cccb;
 }
 
+#zoom-to{
+    position: absolute;
+    z-index: 900;
+    top:200px;
+    left: 20px;
+}
+
     
 
 </style>
 <body>
 
 <div id="map"></div>
+<button id="zoom-to">Zoom to</button>
 
 <script>
+    var button = document.getElementById("zoom-to");
+
     var map = L.map('map').setView([53.3498, -6.2603], 10);
     var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
@@ -55,6 +65,13 @@ html, body {
     map.fitBounds(polyline.getBounds());
 
     map.on('click', onMapClick);
+
+
+    function zoomToExtentOfPolyline() {
+        map.fitBounds(polyline.getBounds());
+    };
+
+    button.addEventListener("click",zoomToExtentOfPolyline)
 
 </script>
 </body>
